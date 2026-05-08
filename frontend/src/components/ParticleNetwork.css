@@ -1,0 +1,39 @@
+.particle-network-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  background-color: var(--bg);
+}
+
+.particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.content-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  pointer-events: none; /* Let clicks pass through to the canvas if needed, or disable if the overlay handles them */
+}
+
+/* We want the auth card to be clickable, so re-enable pointer events on it */
+.content-overlay > * {
+  pointer-events: auto;
+}
