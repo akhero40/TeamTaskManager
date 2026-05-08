@@ -32,11 +32,8 @@ app.use("/api/tasks", taskRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/users", userRoutes);
 
-// Serve frontend static files
-app.use(express.static(path.join(__dirname, "../../frontend/dist")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+app.get("/", (req, res) => {
+  res.send("Team Task Manager API is running");
 });
 
 app.listen(PORT, () => {

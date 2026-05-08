@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [name, setName] = useState('');
@@ -12,7 +14,7 @@ const Projects = () => {
   const fetchProjects = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('/api/projects', {
+      const res = await axios.get(`${API_URL}/api/projects`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setProjects(res.data);
@@ -29,7 +31,7 @@ const Projects = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/projects', { name, description }, {
+      await axios.post(`${API_URL}/api/projects`, { name, description }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setName('');

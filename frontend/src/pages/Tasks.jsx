@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -19,15 +21,15 @@ const Tasks = () => {
       const headers = { Authorization: `Bearer ${token}` };
       
       const [tasksRes, projectsRes] = await Promise.all([
-        axios.get('/api/tasks', { headers }),
-        axios.get('/api/projects', { headers })
+        axios.get(`${API_URL}/api/tasks`, { headers }),
+        axios.get(`${API_URL}/api/projects`, { headers })
       ]);
       
       setTasks(tasksRes.data);
       setProjects(projectsRes.data);
       
       if (isAdmin) {
-        const usersRes = await axios.get('/api/users', { headers });
+        const usersRes = await axios.get(`${API_URL}/api/users`, { headers });
         setUsers(usersRes.data);
       }
     } catch (err) {
@@ -43,7 +45,7 @@ const Tasks = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/tasks', { title, projectId, assigneeId }, {
+      await axios.post(`${API_URL}/api/tasks`, { title, projectId, assigneeId }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTitle('');
@@ -58,7 +60,7 @@ const Tasks = () => {
   const handleStatusChange = async (taskId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`/api/tasks/${taskId}`, { status: newStatus }, {
+      await axios.patch(`${API_URL}/api/tasks/${taskId}`, { status: newStatus }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchData();

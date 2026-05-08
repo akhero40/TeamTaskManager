@@ -38,20 +38,26 @@ npm run dev
 
 ## Railway Deployment (Mandatory)
 
-This application is configured as a single deployment monorepo. The Node.js backend serves the React frontend statically.
+Since your code is pushed with the `TeamTaskManager/` folder, you must deploy the **Backend** and **Frontend** as **two separate services** in Railway.
 
-1. **Push to GitHub**: Push the `TeamTaskManager` folder to your GitHub account.
-2. **Deploy on Railway**:
-   - Go to [Railway.app](https://railway.app/) and create a new project -> **Deploy from GitHub repo**.
-   - Select your repository. Railway will automatically detect the root `package.json`.
-3. **Environment Variables**:
-   - In your Railway service settings, add the following variables:
+1. **Deploy Backend**:
+   - Go to Railway, create a new service -> **Deploy from GitHub repo**.
+   - Select your repo.
+   - Go to the service **Settings** -> **Root Directory** and set it to `/TeamTaskManager/backend`.
+   - In **Variables**, add:
      - `MONGODB_URI`: `mongodb+srv://aryaveershekhawat2_db_user:Anurag%402004@cluster0.5qomxl9.mongodb.net/teamtaskmanager?appName=Cluster0`
      - `JWT_SECRET`: Any random secure string
      - `PORT`: `5000`
-4. **Deploy**: Railway will run `npm run build` (which builds the frontend) and then `npm start` (which runs the backend serving the frontend).
-5. **Generate Domain**: Once deployed, click on the service -> Settings -> Generate Domain to get your live URL.
-6. Record your 2-5 min demo video showcasing the live URL.
+   - Generate a Domain for the backend. Copy this URL.
+
+2. **Deploy Frontend**:
+   - Create another new service from the same GitHub repo.
+   - Go to **Settings** -> **Root Directory** and set it to `/TeamTaskManager/frontend`.
+   - In **Variables**, add:
+     - `VITE_API_URL`: Paste the backend domain URL you copied earlier (e.g., `https://your-backend-app.up.railway.app`)
+   - Generate a Domain for the frontend. This is your live website!
+
+3. Record your 2-5 min demo video showcasing the live URL.
 
 ## Demo Video
 *(Link your demo video here)*

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ParticleNetwork from '../components/ParticleNetwork';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
@@ -19,7 +21,7 @@ const Auth = () => {
       const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
       const payload = isLogin ? { email, password } : { email, password, name, role: 'ADMIN' }; // Defaulting to ADMIN for demo purposes
       
-      const res = await axios.post(endpoint, payload);
+      const res = await axios.post(`${API_URL}${endpoint}`, payload);
       
       if (isLogin) {
         localStorage.setItem('token', res.data.token);

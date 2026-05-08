@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CheckCircle2, Clock, ListTodo, AlertTriangle } from 'lucide-react';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
 
@@ -9,7 +11,7 @@ const Dashboard = () => {
     const fetchStats = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('/api/dashboard', {
+        const res = await axios.get(`${API_URL}/api/dashboard`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setStats(res.data);
